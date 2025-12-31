@@ -40,6 +40,8 @@
     /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
+    --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     /* Border Radius */
     --radius-sm: 4px;
@@ -295,8 +297,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-bg img {
     width: 100%;
-    height: 100%;
+    height: 120%;
     object-fit: cover;
+    object-position: center;
+    transform-origin: center center;
 }
 
 .hero-bg::after {
@@ -1300,5 +1304,356 @@ h1, h2, h3, h4, h5, h6 {
 
     .section {
         padding: var(--spacing-xl) 0;
+    }
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+/* Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scroll Reveal Classes */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Stagger delays for children */
+.stagger-children > *:nth-child(1) { transition-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { transition-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { transition-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { transition-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { transition-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { transition-delay: 0.6s; }
+
+/* Hero Animations */
+.hero-badge {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.hero-title {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.hero-subtitle {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+.hero-desc {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+.hero-buttons {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+
+.hero-features {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+
+/* Floating animation for QR code */
+.qr-code-img {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Logo star spin on hover */
+.logo:hover .logo-icon {
+    animation: rotate 0.6s ease-in-out;
+}
+
+/* Enhanced Button Hover Effects */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Card hover lift effect */
+.menu-card,
+.contact-card,
+.menu-item {
+    transition: transform var(--transition-slow),
+                box-shadow var(--transition-slow),
+                border-color var(--transition-normal);
+}
+
+/* Image zoom on hover */
+.menu-card-image img,
+.menu-item-image img,
+.about-img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-card:hover .menu-card-image img,
+.menu-item:hover .menu-item-image img {
+    transform: scale(1.1);
+}
+
+/* Text shimmer effect for highlighted text */
+.highlight {
+    background: linear-gradient(
+        90deg,
+        var(--color-primary) 0%,
+        var(--color-primary-light) 50%,
+        var(--color-primary) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+}
+
+/* Section tag pulse on hover */
+.section-tag {
+    transition: transform var(--transition-bounce),
+                background var(--transition-normal);
+}
+
+.section-tag:hover {
+    transform: scale(1.05);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* Feature items slide in */
+.feature {
+    transition: transform var(--transition-normal),
+                background var(--transition-normal);
+}
+
+.feature:hover {
+    transform: translateX(10px);
+    background: var(--color-gray);
+}
+
+/* Nav link underline animation */
+.nav a {
+    position: relative;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-gold);
+    transition: width var(--transition-normal);
+}
+
+.nav a:hover::after,
+.nav a.active::after {
+    width: 100%;
+}
+
+/* Social link bounce */
+.social-link {
+    transition: transform var(--transition-bounce),
+                background var(--transition-normal),
+                border-color var(--transition-normal),
+                color var(--transition-normal);
+}
+
+.social-link:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* Map container glow effect */
+.map-container {
+    transition: box-shadow var(--transition-slow);
+}
+
+.map-container:hover {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+/* Mobile menu animation */
+@media (max-width: 768px) {
+    .nav {
+        transform-origin: top;
+        animation: none;
+    }
+
+    .nav.active {
+        animation: fadeInUp 0.3s ease-out;
+    }
+
+    .nav.active a {
+        animation: fadeInUp 0.4s ease-out backwards;
+    }
+
+    .nav.active a:nth-child(1) { animation-delay: 0.1s; }
+    .nav.active a:nth-child(2) { animation-delay: 0.15s; }
+    .nav.active a:nth-child(3) { animation-delay: 0.2s; }
+
+    /* Disable heavy animations on mobile for performance */
+    .highlight {
+        animation: none;
+        -webkit-text-fill-color: var(--color-primary);
+        background: none;
+    }
+
+    .qr-code-img {
+        animation: none;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+        opacity: 1;
+        transform: none;
     }
 }
